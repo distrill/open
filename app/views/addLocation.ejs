@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="css/stylesheet.css"/>
+    </head>
+    <body>
+        <% if( addAnother ) { %>
+            entry added successfully. <br><br>
+        <% } else { %>
+            <br><br>
+        <% } %>
+        Add a location to the database.<br><br>
+        <form action="" method="post" class="add-location-form">
+            <div class="add-location-input-elem">
+                place: <input type="text" name="place"><br>
+            </div>
+            <div class="add-location-input-elem">
+                address: <input type="text" name="address"><br>
+            </div>
+            <div class="add-location-input-elem">
+                open: <input type="number" name="open"><br>
+            </div>
+            <div class="add-location-input-elem">
+                close: <input type="number" name="close"></input><br>
+            </div>
+            <input class="hidden-submit" type="submit" value="submit">
+        </form>
+        <!-- <script src="js/scripts.js"></script> -->
+    </body>
+</html>

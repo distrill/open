@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/stylesheet.css">
+  </head>
+  <body class="lander">
+    <br>
+    <div style="margin-top:15px;">
+    <% if( userFirstName ) { %>
+        <h2>Hello <%= userFirstName %></h2>
+        <a href="/signout">Sign Out</a>
+    <% } else { %>
+        <a href="/signin" style="padding:10px;">Signin</a>
+        <a href="/signup" style="padding:10px;">Signup</a>
+    <% } %>
+    </div>
+    <br>
+    <br>
+    <img src="img/logo.png" alt="Logo">
+    <br>
+    <br>
+    <a href="/browse" id="get-started-button"><h3>Get Started</h3></a>
+    <a href="/browseMap" id="map-started-button"><h3>Map Started</h3></a>
+    <br>
+    <br>
+    <a href="/admin"><span class="tiny">admin</span></a>
+
+  </body>
+</html>
