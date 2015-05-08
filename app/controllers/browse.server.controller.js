@@ -4,10 +4,7 @@ var distance = require( 'google-distance' ),
     server = require( '../../server.js' );
     // io = require( 'socket.io' )( server );
 
-    response = null,
-    userOrigin = {},
-    dbLocations = [],
-    distances = [];
+    var userLatLng = null;
 
 distance.apiKey = 'AIzaSyCYbk1deYkS-RaJV45xOxm2z5TQHA9r6V8';
 
@@ -23,25 +20,38 @@ distance.apiKey = 'AIzaSyCYbk1deYkS-RaJV45xOxm2z5TQHA9r6V8';
  */
 
 exports.getStarted = function( req, res, next ) {
-    response = res;
-    userOrigin = {};
-    dbLocations = [];
-    distances = [];
-    toGeocode = 'Royal Anne Hotel, Kelowna, BC';
-    geocodeHelper();
+    if( !userLatLng ) {
+        res.render( 'noLocationStart', {
+            title: 'get started',
+            error: 'Could not use browser location. Please enter manually.'
+        });
+    }
+    else {
+        dbQueryHelper( res, userLatLng );
+    }
 }
 
 exports.getBrowseMap = function( req, res, next ) {
-    res.render( 'noLocationStart', {
+    res.render( 'browseMap', {
         title: 'map this map that'
     });
 };
 
 exports.getTesting = function( req, res, next ) {
-    res.render( 'tempMap', {
-        title: "title"
+    res.render( 'noLocationStart', {
+        title: 'title'
     });
 };
+
+exports.WHAT = function( userLoc ) {
+    userLatLng = {
+        lat: userLoc.lat,
+        long: userLoc.long
+    }
+    // console.log( userLoc.lat );
+    // console.log( userLoc.long );
+    // dbQueryHelper( )
+}
 
 
 
@@ -49,52 +59,70 @@ exports.getTesting = function( req, res, next ) {
 /************************************************************
  *                getStarted helper functions               *
  ************************************************************/
-function geocodeHelper() {
-    geocoder.geocode( toGeocode, function( err, result ) {
-        userOrigin = {
-            place: toGeocode,
+function geocodeHelper( res, origin ) {
+    geocoder.geocode( origin, function( err, result ) {
+        var userOrigin = {
+            // place: origin,
             lat: result[ 0 ].latitude,
             long: result[ 0 ].longitude
         }
-        dbQueryHelper();
+        dbQueryHelper( res, userOrigin );
     });
 }
 
-function dbQueryHelper() {
+function dbQueryHelper( res, userOrigin ) {
     location.find( {} ).find( function( err, locations ) {
+        var dbLocations = [];
         for( var i in locations ) {
             dbLocations.push( locations[ i ].address );
         }
-        distanceMatrixHelper();
+        distanceMatrixHelper( res, userOrigin, dbLocations );
     });
 }
 
-function distanceMatrixHelper() {
+function distanceMatrixHelper( res, userOrigin, dbLocations ) {
+    var distances = [];
     distance.get( {
-        origin: toGeocode,
+        origin: userOrigin.lat + "," + userOrigin.long,
         destinations: dbLocations
-    }, distanceMatrixCallback );
+    }, function ( err, data ) {
+        if( err ) {
+            return console.log( err );
+        } else {
+            for ( var i in data ) {
+                distances.push( {
+                    place: null,
+                    lat: null,
+                    long: null,
+                    address: data[ i ].destination,
+                    distance: data[ i ].distance,
+                    sort: data[ i ].distanceValue,
+                });
+            }
+            combineDistanceDestination( res, userOrigin, dbLocations, distances );
+        };
+    });
 }
 
-function distanceMatrixCallback( err, data ) {
-    if( err ) {
-        return console.log( err );
-    } else {
-        for ( var i in data ) {
-            distances.push( {
-                place: null,
-                lat: null,
-                long: null,
-                address: data[ i ].destination,
-                distance: data[ i ].distance,
-                sort: data[ i ].distanceValue,
-            });
-        }
-        combineDistanceDestination();
-    };
-};
+// function ( err, data ) {
+//     if( err ) {
+//         return console.log( err );
+//     } else {
+//         for ( var i in data ) {
+//             distances.push( {
+//                 place: null,
+//                 lat: null,
+//                 long: null,
+//                 address: data[ i ].destination,
+//                 distance: data[ i ].distance,
+//                 sort: data[ i ].distanceValue,
+//             });
+//         }
+//         combineDistanceDestination();
+//     };
+// };
 
-function combineDistanceDestination() {
+function combineDistanceDestination( res, userOrigin, dbLocations, distances ) {
     location.find( {} ).find( function( err, locations ) {
         for( var i in distances ) {
             distances[ i ].place = locations[ i ].place;
@@ -104,13 +132,14 @@ function combineDistanceDestination() {
         distances.sort( function( a, b ) {
             return parseInt( a.sort ) - parseInt( b.sort );
         });
-        renderBrowse();
+        renderBrowse( res, userOrigin, dbLocations, distances );
     });
 }
 
-function renderBrowse() {
-    response.render( 'browse', {
-        title: 'get started',
+function renderBrowse( res, userOrigin, dbLocations, distances) {
+    console.log( userOrigin );
+    res.render( 'browseMap', {
+        title: 'map browse',
         start: userOrigin.place,
         startLat: userOrigin.lat,
         startLong: userOrigin.long,

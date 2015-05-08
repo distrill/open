@@ -1,55 +1,37 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-    </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <br>
+    OK you are here:
+    <br>
+    <br>
+    <%= start %>
+    <br>
+    lat: <%= startLat %>
+    <br>
+    lng: <%= startLong%>
+    <br>
+    <br>
+    <br>
+    places in our db that are close to you (sorted by throwing knives).
+    <br>
+    (distance. i mean sorted by distance)
+    <br>
+    <br>
+    <% for( var i in distance ) { %>
+        <div><%= distance[ i ].distance %>: <%= distance[ i ].place %></div>
+        <div style="margin-left: 20px;"><%= distance[ i ].address %></div>
+        <div style="margin-left: 20px;">lat: <%= distance[ i ].lat %></div>
+        <div style="margin-left: 20px;">lng: <%= distance[ i ].long %></div>
+        <br>
+    <% } %>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="js/open-script.js"></script>
+
 </body>
 </html>
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-    <title><%= title %></title>
-    <head>
-        <style type="text/css">
-            html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    </style>
-
-    </head>
-
-    <body>
-
-        go fuck yourslef
-
-        <div id="map-canvas"></div>
-
-        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-        <script>
-            var socket = io();
-        </script>
-
-    </body>
-
-
-</html> -->
