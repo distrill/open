@@ -54,7 +54,7 @@ a h3:hover {
 .add-location-form input {
     width: 49%;;
     height: 1.5em;
-    height: fill;
+    /*height: fill;*/
     float: right;
     margin-left: .5%;
     padding-left: .5%;
@@ -104,4 +104,15 @@ input[type="number"] {
     width: 100%;
     height: 100%;
     background-color: black;
+    display: none;
+}
+
+.no-geolocation-wrap {
+    width: 100%;
+    height: 100%;
+    background-color: blue;
+}
+
+.no-geolocation-prompt {
+    color: #e6e6e6;
 }

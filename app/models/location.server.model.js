@@ -13,7 +13,7 @@ var LocationSchema = new Schema( {
             type: Number,
             index: true,
         },
-        long: {
+        lng: {
             type: Number,
             index: true,
         },
@@ -33,10 +33,10 @@ LocationSchema.post( 'save', function( doc ){
     geocoder.geocode( toGeocode, function( err, res ) {
         console.log( res );
         model.update(   { _id: doc._id },
-                        { lat: res[ 0 ].latitude, long: res[ 0 ].longitude, address: res[ 0 ].formattedAddress },
+                        { lat: res[ 0 ].latitude, lng: res[ 0 ].longitude, address: res[ 0 ].formattedAddress },
                         {}, function( err, doc ) {
                             if( err ) {
-                                console.log( 'error updating document with lat/long: ' + err );
+                                console.log( 'error updating document with lat/lng: ' + err );
                             }
         });
     });

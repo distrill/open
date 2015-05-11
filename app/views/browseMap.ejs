@@ -5,45 +5,50 @@
     </head>
     <body>
         <div id="map-canvas" class="map-canvas"></div>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYbk1deYkS-RaJV45xOxm2z5TQHA9r6V8"></script>
-        <!-- <script type="text/javascript" src="js/browseMapScript.js"></script> -->
+        <script type="text/javascript" src="js/browseMapScript.js"></script>
 
         <script>
-        
-            function initialize() {
-                var myLatlng = new google.maps.LatLng(49.8856767,-119.47838449999999);
 
-                var styles = [
-                  {
+            function initialize() {
+                var userLat = <%= startLat %>;
+                var userLng = <%= startLong %>;
+                var userLatlng = new google.maps.LatLng(userLat,userLng);
+                localMaxZ = 0;
+
+                var styles = [ {
                     stylers: [
-                      { hue: "#00ffe6" },
-                      { saturation: -20 }
+                        { hue: "#00ffe6" },
+                        { saturation: -20 }
                     ]
-                  },{
-                    featureType: "road",
-                    elementType: "geometry",
-                    stylers: [
-                      { lightness: 100 },
-                      { visibility: "simplified" }
-                    ]
-                  },{
-                    featureType: "road",
-                    elementType: "labels",
-                    stylers: [
-                      { visibility: "off" }
-                    ]
-                  }
+                    }, {
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [
+                            { lightness: 100 },
+                            { visibility: "simplified" }
+                        ]
+                    },{
+                    // featureType: "road",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
                 ];
 
-                var styledMap = new google.maps.StyledMapType(styles,
-                    {name: "Styled Map"});
+                var styledMap = new google.maps.StyledMapType(styles, {
+                    name: "Styled Map"
+                });
 
                 var mapOptions = {
                     zoom: 13,
-                    center: myLatlng,
+                    center: userLatlng,
                     mapTypeControlOptions: {
                       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-                    }
+                    },
+                    disableDefaultUI: true
                 }
 
                 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -52,16 +57,18 @@
                 map.setMapTypeId('map_style');
 
                 var marker = new google.maps.Marker({
-                    position: myLatlng,
+                    position: userLatlng,
                     map: map,
-                    title: 'Hello World!'
+                    title: 'Hello World!',
+                    icon: 'img/userMark.png'
                 });
 
                 <% for( var i in distance ) { %>
-                        var myLatlng = new google.maps.LatLng( <%= distance[ i ].lat %>,<%= distance[ i ].long %> );
+                        var locLatlng = new google.maps.LatLng( <%= distance[ i ].lat %>,<%= distance[ i ].long %> );
                         var marker = new google.maps.Marker({
-                            position: myLatlng,
-                            map: map
+                            position: locLatlng,
+                            map: map,
+                            icon: 'img/locMark.png'
                         });
                 <% } %>
             }

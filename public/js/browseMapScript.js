@@ -1,57 +1,89 @@
-function initialize() {
-    var myLatlng = new google.maps.LatLng(49.8856767,-119.47838449999999);
+var socket = io();
+var map;
 
-    var styles = [
-      {
-        stylers: [
-          { hue: "#00ffe6" },
-          { saturation: -20 }
-        ]
-      },{
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-          { lightness: 100 },
-          { visibility: "simplified" }
-        ]
-      },{
-        featureType: "road",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      }
-    ];
+google.maps.event.addDomListener(window, 'load', function(){} );
 
-    var styledMap = new google.maps.StyledMapType(styles,
-        {name: "Styled Map"});
-
+function drawMap( userLocation ) {
     var mapOptions = {
+        center: userLocation,
         zoom: 13,
-        center: myLatlng,
         mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-        }
-    }
+        },
+        disableDefaultUI: true
+    };
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    var styles = [ {
+        stylers: [
+            { hue: "#00ffe6" },
+            { saturation: -20 }
+        ]
+        }, {
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [
+                { lightness: 100 },
+                { visibility: "simplified" }
+            ]
+        },{
+            elementType: "labels",
+            stylers: [
+                { visibility: "off" }
+            ]
+        }
+    ];
+
+    var styledMap = new google.maps.StyledMapType(styles, {
+        name: "Styled Map"
+    });
+
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     map.mapTypes.set('map_style', styledMap);
     map.setMapTypeId('map_style');
 
     var marker = new google.maps.Marker({
-        position: myLatlng,
+        position: userLocation,
         map: map,
-        title: 'Hello World!'
+        icon: 'img/userMark.png'
     });
-
-    <% for( var i in distance ) { %>
-            var myLatlng = new google.maps.LatLng( <%= distance[ i ].lat %>,<%= distance[ i ].long %> );
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map
-            });
-    <% } %>
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+
+//  get location information from browser if
+//  no info, or user declines, default is
+//  underlying prompt for manual location entry
+navigator.geolocation.getCurrentPosition( function( position ) {
+
+    document.getElementById( 'no-geoloation-wrap' ).style.display = "none";
+    document.getElementById( 'map-canvas' ).style.display = "block";
+
+    var userLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+
+    drawMap( userLocation )
+
+    //  send location information back to the server
+    socket.emit( 'userLocation', userLocation );
+});
+
+
+//  listener for when socket controller is
+//  finished. it sends back distance info,
+//  which just gets thrown into markers atm
+socket.on( 'distances', function( distances ) {
+    for( var i in distances ) {
+        var locLatLng = {
+            lat: distances[ i ].lat,
+            lng: distances[ i ].lng
+        }
+        var marker = new google.maps.Marker({
+            position: locLatLng,
+            map: map,
+            title: distances[ i ].place,
+            icon: 'img/locMark.png'
+        });
+    }
+});
