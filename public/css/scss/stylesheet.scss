@@ -1,0 +1,169 @@
+$white: #e6e6e6;
+$light-blue: #a9bcd0;
+$green: #58a4b0;
+$dark-blue: #373f51;
+$gray: #535555;
+$black: #1b1b1e;
+
+*:focus {
+    outline: solid 0 $black;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    color: $white;
+    background-color: $gray;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+a {
+    color: $white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #bbb;
+}
+
+a:visited {
+    color: #e6e6e6;
+}
+
+a h3:hover {
+    color: #bbb;
+    }
+
+// .lander {
+//     background-color: $dark-blue;
+// }
+
+.hidden-submit {
+    display: none;
+}
+
+.add-location-input-elem {
+    width: 100%;
+    /*background-color: #e6e6e6;*/
+    text-align: right;
+    height: 1.5em;
+}
+
+.add-location-form input {
+    width: 49%;;
+    height: 1.5em;
+    /*height: fill;*/
+    float: right;
+    margin-left: .5%;
+    padding-left: .5%;
+    background-color: rgba(250,250,250, 1);
+    border: none;
+}
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.browse-maps {
+    background-image: url( "../img/background.png" );
+    background-size: cover;
+}
+
+.tiny {
+    font-size: 10px;
+    position: absolute;
+    bottom: 20px;
+}
+
+.user-location-prompt-container {
+    width: 100%;
+    max-width: 300px;
+    height: 100px;
+    margin: auto;
+    margin-top: 250px;
+    background-color: $white;
+    color: $black;
+    padding: 20px;
+}
+
+.hide {
+    display: none;
+}
+
+.map-canvas {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color: black;*/
+    display: none;
+    overflow: hidden;
+}
+
+.no-geolocation-wrap {
+    width: 100%;
+    height: 100%;
+    /*padding-top:  15%;*/
+    /*background-color: blue;*/
+    background-image: url( '../img/background.png' );
+    background-size: cover;
+    overflow: hidden;
+}
+
+/*.no-geolocation-prompt {
+    color: #e6e6e6;
+}*/
+
+.map-main-info-overlay {
+    position: absolute;
+    width: 90%;
+    height: 7%;
+    left: 5%;
+    bottom: -2px;
+    border-bottom: 0;
+    transition: height 0.25s ease;
+    display: none;
+    z-index: 9;
+}
+
+.overlay {
+    background-color: rgba(250, 250, 250, 0.85);
+    border-radius: 2px;
+    color: $black;
+    box-shadow: 3px 3px 12px -1px #555;
+}
+
+.no-geolocation-prompt {
+    width: 400px;
+    height: 200px;
+    margin: auto;
+    margin-top: 10%;
+    /*padding: 15px;*/
+}
+
+.no-geolocation-prompt p {
+    display: inline-block;
+    /*background-color: white;*/
+    margin: 20px 0 10px 0;
+}

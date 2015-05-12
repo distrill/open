@@ -13,6 +13,18 @@ module.exports = function( io, socket ) {
     socket.on( 'userLocation', function( location ) {
         dbQueryHelper( socket, location );
     });
+
+    socket.on( 'manualLocationEntry', function( location ) {
+            //  get lat/lng from user location entry for use in dbQueryHelper
+            geocoder.geocode( location, function( err, result ) {
+                var userOrigin = {
+                    lat: result[ 0 ].latitude,
+                    lng: result[ 0 ].longitude
+                }
+                socket.emit( 'manualLocationGeocoded', userOrigin );
+                dbQueryHelper( socket, userOrigin );
+            });
+    })
 }
 
 

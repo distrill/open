@@ -4,6 +4,11 @@ var map;
 google.maps.event.addDomListener(window, 'load', function(){} );
 
 function drawMap( userLocation ) {
+
+    document.getElementById( 'no-geoloation-wrap' ).style.display = 'none';
+    document.getElementById( 'map-canvas' ).style.display = 'block';
+    document.getElementById( 'map-main-info-overlay' ).style.display = 'block';
+
     var mapOptions = {
         center: userLocation,
         zoom: 13,
@@ -15,7 +20,8 @@ function drawMap( userLocation ) {
 
     var styles = [ {
         stylers: [
-            { hue: "#00ffe6" },
+            // { hue: "#00ffe6" },
+            { hue: "#a9bcd0" },
             { saturation: -20 }
         ]
         }, {
@@ -45,7 +51,7 @@ function drawMap( userLocation ) {
     var marker = new google.maps.Marker({
         position: userLocation,
         map: map,
-        icon: 'img/userMark.png'
+        icon: 'img/userMark2.png'
     });
 }
 
@@ -54,10 +60,7 @@ function drawMap( userLocation ) {
 //  no info, or user declines, default is
 //  underlying prompt for manual location entry
 navigator.geolocation.getCurrentPosition( function( position ) {
-
-    document.getElementById( 'no-geoloation-wrap' ).style.display = "none";
-    document.getElementById( 'map-canvas' ).style.display = "block";
-
+    
     var userLocation = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -87,3 +90,23 @@ socket.on( 'distances', function( distances ) {
         });
     }
 });
+
+
+function overlayHeightToggle( id ) {
+    var elem = document.getElementById( id );
+    var height = Math.round( elem.clientHeight/window.innerHeight + 'e2' );
+    if( height === 7 ) {
+        elem.style.height = '40%';
+    } else {
+        elem.style.height = '7%';
+    }
+}
+
+function manualLocationInput( id ) {
+    var location = document.getElementById( id ).value;
+    socket.emit( 'manualLocationEntry', location );
+    socket.on( 'manualLocationGeocoded', function( location ) {
+        drawMap( location );
+    });
+    return false;
+}

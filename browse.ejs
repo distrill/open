@@ -6,11 +6,20 @@
     </head>
     <body>
 
+
+        <div id="map-main-info-overlay" class="overlay map-main-info-overlay" onclick="overlayHeightToggle( 'map-main-info-overlay' );">
+            something this something that
+        </div>
         <div id="map-canvas" class="map-canvas"></div>
 
         <div id = "no-geoloation-wrap" class="no-geolocation-wrap">
-            <div class="no-geolocation-prompt">
+            <div class=" overlay no-geolocation-prompt">
                 where are you?
+                <form onsubmit="return manualLocationInput( 'no-geolocation-prompt-input' );">
+                    <input type="text" class="no-geolocation-prompt-input" id="no-geolocation-prompt-input">
+                    <br>
+                    <input type="submit" class="no-geolocation-prompt-submit" id="no-geolocation-prompt-submit">
+                </form>
             </div>
         </div>
 

@@ -1,37 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><%= title %></title>
-</head>
-<body>
-    <br>
-    OK you are here:
-    <br>
-    <br>
-    <%= start %>
-    <br>
-    lat: <%= startLat %>
-    <br>
-    lng: <%= startLong%>
-    <br>
-    <br>
-    <br>
-    places in our db that are close to you (sorted by throwing knives).
-    <br>
-    (distance. i mean sorted by distance)
-    <br>
-    <br>
-    <% for( var i in distance ) { %>
-        <div><%= distance[ i ].distance %>: <%= distance[ i ].place %></div>
-        <div style="margin-left: 20px;"><%= distance[ i ].address %></div>
-        <div style="margin-left: 20px;">lat: <%= distance[ i ].lat %></div>
-        <div style="margin-left: 20px;">lng: <%= distance[ i ].long %></div>
-        <br>
-    <% } %>
+<html>
+    <head>
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+        <link rel="stylesheet" href="css/stylesheet.css">
+    </head>
+    <body>
 
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <!-- // <script src="js/open-script.js"></script> -->
+        <div id="map-main-info-overlay" class="overlay map-main-info-overlay" onclick="overlayHeightToggle('map-main-info-overlay');"></div>
+        <div id="map-canvas" class="map-canvas"></div>
 
-</body>
+        <div id = "no-geoloation-wrap" class="no-geolocation-wrap">
+            <div class="overlay no-geolocation-prompt">
+                <p>where are you?</p>
+                <form onsubmit="return manualLocationInput('manual-location-input');">
+                    <input type="text" id="manual-location-input" class="manual-location-input">
+                    <br>
+                    <input type="submit" class="button manual-location-submit">
+                </form>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYbk1deYkS-RaJV45xOxm2z5TQHA9r6V8"></script>
+        <script type="text/javascript" src="js/browseMapScript.js"></script>
+    </body>
 </html>
