@@ -108,16 +108,18 @@ input[type="number"] {
 .map-main-info-overlay {
   position: absolute;
   width: 90%;
-  height: 7%;
+  height: 50px;
   left: 5%;
-  bottom: -2px;
+  bottom: -3px;
   border-bottom: 0;
+  transition: top 0.25s ease;
   transition: height 0.25s ease;
   display: none;
-  z-index: 9; }
+  z-index: 9;
+  overflow: auto; }
 
 .overlay {
-  background-color: rgba(250, 250, 250, 0.85);
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 2px;
   color: #1b1b1e;
   box-shadow: 3px 3px 12px -1px #555; }
@@ -133,5 +135,35 @@ input[type="number"] {
   display: inline-block;
   /*background-color: white;*/
   margin: 20px 0 10px 0; }
+
+.browse-page-wrapper {
+  width: 100%;
+  height: 100%; }
+
+.map-main-info-overlay {
+  overflow: hidden; }
+
+.overlay-content {
+  display: none;
+  min-height: 100%;
+  margin: 15px 30px; }
+
+.overlay-content-min-inside {
+  display: block; }
+
+.chevron {
+  display: none;
+  position: absolute;
+  top: 50px;
+  z-index: 9999; }
+
+.chevron:hover {
+  cursor: pointer; }
+
+.chevron-left {
+  left: 0; }
+
+.chevron-right {
+  right: 0; }
 
 /*# sourceMappingURL=stylesheet.css.map */

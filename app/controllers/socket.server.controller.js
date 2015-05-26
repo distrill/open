@@ -88,5 +88,10 @@ function combineDistanceDestination( socket, userOrigin, dbLocations, distances 
             return parseInt( a.sort ) - parseInt( b.sort );
         });
         socket.emit( 'distances', distances );
+        socket.emit( 'distanceReturn', distances );
+        // socket.on( 'distanceRequest', function() {
+        //     console.log( distances );
+        //     socket.emit( 'distanceReturn', distances );
+        // })
     });
 }

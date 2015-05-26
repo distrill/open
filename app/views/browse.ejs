@@ -5,24 +5,43 @@
         <link rel="stylesheet" href="css/stylesheet.css">
     </head>
     <body>
+        <div id="browse-page-wrapper" class="browse-page-wrapper">
 
-        <div id="map-main-info-overlay" class="overlay map-main-info-overlay" onclick="overlayHeightToggle('map-main-info-overlay');"></div>
-        <div id="map-canvas" class="map-canvas"></div>
 
-        <div id = "no-geoloation-wrap" class="no-geolocation-wrap">
-            <div class="overlay no-geolocation-prompt">
-                <p>where are you?</p>
-                <form onsubmit="return manualLocationInput('manual-location-input');">
-                    <input type="text" id="manual-location-input" class="manual-location-input">
-                    <br>
-                    <input type="submit" class="button manual-location-submit">
-                </form>
+            <div id="map-main-info-overlay" class="overlay map-main-info-overlay" onclick="htmlFunctionOverlayHeight('map-main-info-overlay',true);">
+                <div id="overlay-content-wrap" class="overlay-content-wrap">
+                    <div id="overlay-content-one-inside" class="overlay-content overlay-content-one-inside">
+                        <!-- one -->
+                    </div>
+                    <div id="overlay-content-two-inside" class="overlay-content overlay-content-two-inside">
+                        <!-- two -->
+                    </div>
+                    <div id="overlay-content-min-inside" class="overlay-content overlay-content-min-inside">
+                        <!-- min -->
+                    </div>
+                </div>
+                <img src="img/chevron-left.png" id="chevron-left" class="chevron chevron-left" onclick="chevronToggle('left');">
+                <img src="img/chevron-right.png" id="chevron-right" class="chevron chevron-right" onclick="chevronToggle('right');">
             </div>
-        </div>
 
+            <div id="map-canvas" class="map-canvas"></div>
+
+            <div id = "no-geoloation-wrap" class="no-geolocation-wrap">
+                <div class="overlay no-geolocation-prompt">
+                    <p>where are you?</p>
+                    <form onsubmit="return manualLocationInput('manual-location-input');">
+                        <input type="text" id="manual-location-input" class="manual-location-input">
+                        <br>
+                        <input type="submit" class="button manual-location-submit">
+                    </form>
+                </div>
+            </div>
+
+        </div>
 
         <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYbk1deYkS-RaJV45xOxm2z5TQHA9r6V8"></script>
         <script type="text/javascript" src="js/browseMapScript.js"></script>
+
     </body>
 </html>
