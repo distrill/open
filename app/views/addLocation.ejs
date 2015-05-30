@@ -10,21 +10,60 @@
             <br><br>
         <% } %>
         Add a location to the database.<br><br>
-        <form action="" method="post" class="add-location-form">
-            <div class="add-location-input-elem">
+        <form action="" method="post">
+        <!-- <form action="" method="post" class="add-location-form"> -->
+            <div>
                 place: <input type="text" name="place"><br>
             </div>
-            <div class="add-location-input-elem">
+            <div>
                 address: <input type="text" name="address"><br>
             </div>
-            <div class="add-location-input-elem">
-                open: <input type="number" name="open"><br>
+
+            delivers?
+            <input type="checkbox" name="delivery"><br><br>
+
+            hours (24-hr format plz)<br>
+            monday<br>
+
+            <div>
+                open: <input type="number" name="monOpen">
+                close: <input type="number" name="monClose"><br><br>
             </div>
-            <div class="add-location-input-elem">
-                close: <input type="number" name="close"></input><br>
+            tuesday<br>
+            <div>
+                open: <input type="number" name="tueOpen">
+                close: <input type="number" name="tueClose"><br><br>
             </div>
+                wednesday<br>
+            <div>
+                open: <input type="number" name="wedOpen">
+                close: <input type="number" name="wedClose"><br><br>
+            </div>
+                thursday<br>
+            <div>
+                open: <input type="number" name="thuOpen">
+                close: <input type="number" name="thuClose"><br><br>
+            </div>
+                friday<br>
+                <div>
+                    open: <input type="number" name="friOpen">
+                    close: <input type="number" name="friClose"><br><br>
+                </div>
+
+                saturday<br>
+                <div>
+                    open: <input type="number" name="satOpen">
+                    close: <input type="number" name="satClose"><br><br>
+                </div>
+                sunday<br>
+                <div>
+                    open: <input type="number" name="sunOpen">
+                    close: <input type="number" name="sunClose"><br><br>
+                </div>
+
             <input class="hidden-submit" type="submit" value="submit">
         </form>
-        <!-- <script src="js/scripts.js"></script> -->
+        <div style="width:100px;height:50px;background-color:gray;color:black;margin:auto;" onclick="fucks();">
+        <script src="js/open-script.js"></script>
     </body>
 </html>

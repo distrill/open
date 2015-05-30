@@ -20,9 +20,9 @@ function drawMap( userLocation ) {
 
     var styles = [ {
         stylers: [
-            { hue: "#ffc300" },
-            { saturation: -100 },
-            { gamma: .17 }
+            { hue: "#00ffe6" },
+            { hue: "#a9bcd0" },
+            { saturation: -20 }
         ]
         }, {
             featureType: "road",
@@ -53,8 +53,8 @@ function drawMap( userLocation ) {
         map: map,
         icon: 'img/userMark2.png'
     });
-
 }
+
 
 //  get location information from browser if
 //  no info, or user declines, default is
@@ -66,10 +66,10 @@ navigator.geolocation.getCurrentPosition( function( position ) {
         lng: position.coords.longitude
     };
 
+    drawMap( userLocation )
+
     //  send location information back to the server
     socket.emit( 'userLocation', userLocation );
-
-    drawMap( userLocation );
 });
 
 
@@ -160,41 +160,21 @@ for( var i = 0; i < prevents.length; i++ ) {
 //  finished. it sends back distance info,
 //  which just gets thrown into markers atm
 socket.on( 'distances', function( distances ) {
-    for( var i in distances ) {
-        console.log( distances[ i ] );
-        // console.log( distances[ i ] );
-    }
     var elem = document.getElementById( 'map-main-info-overlay' );
     var height = elem.clientHeight;
 
     for( var i in distances ) {
-        var distance = distances[ i ];
         var locLatLng = {
-            lat: distance.lat,
-            lng: distance.lng
+            lat: distances[ i ].lat,
+            lng: distances[ i ].lng
         }
         var marker = new google.maps.Marker({
             position: locLatLng,
             map: map,
-            title: distance.place,
-            address: distance.address,
-            distance: distance.distance,
-            icon: 'img/locMark.png',
-            // hours my god there must be a better way...
-            monOpen: distance.monOpen,
-            monClose: distance.monClose,
-            tueOpen: distance.tueOpen,
-            tueClose: distance.tueClose,
-            wedOpen: distance.wedOpen,
-            wedClose: distance.wedClose,
-            thuOpen: distance.thuOpen,
-            thuClose: distance.thuClose,
-            friOpen: distance.friOpen,
-            friClose: distance.friClose,
-            satOpen: distance.satOpen,
-            satClose: distance.satClose,
-            sunOpen: distance.sunOpen,
-            sunClose: distance.sunClose
+            title: distances[ i ].place,
+            address: distances[ i ].address,
+            distance: distances[ i ].distance,
+            icon: 'img/locMark.png'
         });
 
 
@@ -217,43 +197,18 @@ socket.on( 'distances', function( distances ) {
 
         google.maps.event.addListener(marker, 'click', function() {
             // overlayHeightToggle( 'map-main-info-overlay', false );
-            var message = '<div class="main-overlay-content"><div class="main-overlay-left">' + (
+            var message = '<div class="main-overlay-content">' + (
                 this.title + ', ' +
                 this.address + ': ' +
-                this.distance +
-                '</div></div><div class="main-overlay-right">HOURS:<br>' +
-                'mon: ' + readableHours( this.monOpen ) + ' - ' + readableHours( this.monClose ) + '<br>' +
-                'tue: ' + readableHours( this.tueOpen ) + ' - ' + readableHours( this.tueClose ) + '<br>' +
-                'wed: ' + readableHours( this.wedOpen ) + ' - ' + readableHours( this.wedClose ) + '<br>' +
-                'thu: ' + readableHours( this.thuOpen ) + ' - ' + readableHours( this.thuClose ) + '<br>' +
-                'fri: ' + readableHours( this.friOpen ) + ' - ' + readableHours( this.friClose ) + '<br>' +
-                'sat: ' + readableHours( this.satOpen ) + ' - ' + readableHours( this.satClose ) + '<br>' +
-                'sun: ' + readableHours( this.sunOpen ) + ' - ' + readableHours( this.sunClose ) + '<br>' );
+                this.distance
+            ) + '</div>';
            document.getElementById( 'overlay-content-one-inside' ).innerHTML = message;
            overlayHeightToggle( 'one' );
         });
 
     }
 
-    // console.log( map.getCenter() );
-    // console.log( 'northeast: ' + map.getBounds().getNorthEast() );
-    // console.log( 'southwest: ' + map.getBounds().getSouthWest() );
-
 });
-
-function readableHours( hours ) {
-    if( hours < 1200 || hours > 2400 )
-        var ampm = 'am';
-    else
-        var ampm = 'pm';
-    if( hours > 1200 ) {
-        hours = ( hours % 1200 );
-    }
-    var time = new String( 0 + hours );
-    var l = time.length;
-    // return time;
-    return time.substring( l-4, l-2 ) + ':' + time.substring( l-2, l ) + ampm;
-};
 
 socket.on( 'distanceReturn', function( distances ) {
     console.log( 'butthole' );

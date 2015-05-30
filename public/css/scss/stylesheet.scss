@@ -156,7 +156,8 @@ input[type="number"] {
 }
 
 .overlay {
-    background-color: rgba(255, 255, 255, 0.85);
+    // background-color: rgba(255, 255, 255, 0.85);
+    background-color: white;
     border-radius: 2px;
     color: $black;
     box-shadow: 3px 3px 12px -1px #555;
@@ -200,6 +201,16 @@ input[type="number"] {
 
 .map-main-info-overlay {
     overflow: hidden;
+}
+
+.main-overlay-right {
+    float: right;
+    width: 40%;
+}
+
+.main-overlay-left {
+    float: left;
+    width: 60%;
 }
 
 .overlay-content {

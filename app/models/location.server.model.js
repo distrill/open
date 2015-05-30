@@ -9,6 +9,24 @@ var mongoose = require( 'mongoose' ),
 var LocationSchema = new Schema( {
         place: String,
         address: String,
+        delivery: {
+            type: Boolean,
+            default: false
+        },
+        monOpen: Number,
+        monClose: Number,
+        tueOpen: Number,
+        tueClose: Number,
+        wedOpen: Number,
+        wedClose: Number,
+        thuOpen: Number,
+        thuClose: Number,
+        friOpen: Number,
+        friClose: Number,
+        satOpen: Number,
+        satClose: Number,
+        sunOpen: Number,
+        sunClose: Number,
         lat: {
             type: Number,
             index: true,
@@ -17,14 +35,15 @@ var LocationSchema = new Schema( {
             type: Number,
             index: true,
         },
-        open: {
+        distance: {
             type: Number,
-            default: 123,
+            default: null
         },
-        close: {
-            type: Number,
-            default: 123,
+        open: {
+            type: Boolean,
+            default: false
         }
+
 });
 
 LocationSchema.post( 'save', function( doc ){
