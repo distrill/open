@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Cantarell);
+
 $white: #e6e6e6;
 $light-blue: #a9bcd0;
 $green: #58a4b0;
@@ -5,13 +7,17 @@ $dark-blue: #373f51;
 $gray: #535555;
 $black: #1b1b1e;
 
-*:focus {
-    outline: solid 0 $black;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    -webkit-box-sizing: border-box !important;
+* {
+    font-family: 'Cantarell', sans-serif;
+
+    &:focus {
+        outline: solid 0 $black;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
+    }
 }
 
 html {
@@ -35,19 +41,18 @@ body {
 a {
     color: $white;
     text-decoration: none;
-}
 
-a:hover {
-    color: #bbb;
-}
-
-a:visited {
-    color: #e6e6e6;
-}
-
-a h3:hover {
-    color: #bbb;
+    &:hover {
+        color: #bbb;
     }
+    &:visited {
+        color: #e6e6e6;
+    }
+    & h3:hover {
+        color: #bbb;
+        }
+}
+
 
 // .lander {
 //     background-color: $dark-blue;
@@ -253,71 +258,15 @@ input[type="number"] {
     right: 0;
 }
 
-
-
-
-// .main-info-overlay-content {
-//     // padding: 50px;
-//     color: $white;
-//     background-color: $gray;
-//     width: auto;
-//     margin: auto;
-//     height: 100%;
-//     margin: 15px;
-// }
-//
-// .chevron {
-//     // margin: 15px;
-//     // float: right;
-//     transition: all 0.5s ease;
-//     height: 20px;
-//     width: 20px;
-//     transition-delay: 0.15s;
-//     // position: absolute;
-// }
-//
-// .chevron:hover {
-//     cursor: pointer;
-// }
-//
-// .overlay-content-wrap {
-//     height: 100%;
-// }
-//
-// // .lower-chevron-wrap {
-// //     height: 10%;
-// // }
-//
-// .primary-chevron-icon {
-//     -moz-transform: rotate( -90deg );
-//     -webkit-transform: rotate( -90deg );
-//     margin: auto;
-//     margin-top: 15px;
-//     width: auto;
-//     // position: absolute;
-//     // bottom: 5px;
-// }
-//
-// .secondary-chevron-icon {
-//     // float: right;
-//     opacity: 0;
-//     // visibilty: hidden;
-//     position: absolute;
-//     transition: opacity 0.65s ease,;
-//     transition: all 0.5s ease;
-//     top: 15px;
-//     right: 15px;
-//     z-index: 99;
-//     // transition: visibility 0.5s ease;
-//     // display: none;
-// }
-//
-// .mioc2 {
-//     display: none
-// }
-//
-// .overlay-content-one-inside {
-//     // color: $white;
-//     // background-color: $gray;
-//     // margin: 15px;
-// }
+.submit-button {
+    width:100px;
+    height: 50px;
+    background-color: #888;
+    color: black;
+    margin: auto;
+    border: 0;
+    &:active {
+        border-right: solid 2px #999;
+        border-bottom: solid 2px #999;
+    }
+}

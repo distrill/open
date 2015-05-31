@@ -13,7 +13,9 @@ exports.create = function( req, res, next ) {           // right now this still 
         longitude = null;
     location.save( function( err ) {
         if( err ) {
-            return next( err );
+            console.log( 'ERROR: locations.server.controller.create(): ' + err );
+            res.redirect( '/' );
+            // return next( err );
         } else {
             res.render( 'addLocation', {
                 title: 'Add Location',
@@ -24,12 +26,12 @@ exports.create = function( req, res, next ) {           // right now this still 
 };
 
 exports.renderAddLocation = function( req, res, next ) {
-    if( req.user && req.user.group === 'admin' ) {
+    // if( req.user && req.user.group === 'admin' ) {
         res.render( 'addLocation', {
             title: 'Add Location',
             addAnother: false,
         });
-    } else {
-        return res.redirect( '/' );
-    }
+    // } else {
+    //     return res.redirect( '/' );
+    // }
 };

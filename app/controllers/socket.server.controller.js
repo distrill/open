@@ -37,6 +37,7 @@ function dbQueryHelper( socket, userOrigin ) {
                 var distances = [];
                 for( var i in locations ) {
                     distances.push( locations[ i ].address );
+                    console.log( locations[ i ].hours );
                 }
                 distanceMatrixHelper( socket, userOrigin, locations, distances );
             }
@@ -81,7 +82,7 @@ function isOpen( location ) {
             console.log( 'thursday' );
             break;
         case 5:
-            console.log( time > location.friOpen || time < location.firClose );
+            console.log( (time > location.friOpen && time < location.friClose ) || ( time < location.thuClose ) );
             break;
         case 6:
             console.log( 'saturday' );

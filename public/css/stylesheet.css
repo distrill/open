@@ -1,10 +1,13 @@
-*:focus {
-  outline: solid 0 #1b1b1e;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box !important;
-  -moz-box-sizing: border-box !important;
-  -webkit-box-sizing: border-box !important; }
+@import url(http://fonts.googleapis.com/css?family=Cantarell);
+* {
+  font-family: 'Cantarell', sans-serif; }
+  *:focus {
+    outline: solid 0 #1b1b1e;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important; }
 
 html {
   height: 100%;
@@ -25,15 +28,12 @@ body {
 a {
   color: #e6e6e6;
   text-decoration: none; }
-
-a:hover {
-  color: #bbb; }
-
-a:visited {
-  color: #e6e6e6; }
-
-a h3:hover {
-  color: #bbb; }
+  a:hover {
+    color: #bbb; }
+  a:visited {
+    color: #e6e6e6; }
+  a h3:hover {
+    color: #bbb; }
 
 .hidden-submit {
   display: none; }
@@ -173,5 +173,16 @@ input[type="number"] {
 
 .chevron-right {
   right: 0; }
+
+.submit-button {
+  width: 100px;
+  height: 50px;
+  background-color: #888;
+  color: black;
+  margin: auto;
+  border: 0; }
+  .submit-button:active {
+    border-right: solid 2px #999;
+    border-bottom: solid 2px #999; }
 
 /*# sourceMappingURL=stylesheet.css.map */
