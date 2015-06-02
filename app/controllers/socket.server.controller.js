@@ -37,7 +37,6 @@ function dbQueryHelper( socket, userOrigin ) {
                 var distances = [];
                 for( var i in locations ) {
                     distances.push( locations[ i ].address );
-                    console.log( locations[ i ].hours );
                 }
                 distanceMatrixHelper( socket, userOrigin, locations, distances );
             }
@@ -51,7 +50,6 @@ function distanceMatrixHelper( socket, userOrigin, locations, distances ) {
     }, function( err, data ) {
         if( err ) { console.log( 'ERRR: ' + err ); }
         for( var i in data ) {
-            isOpen( locations[ i ] );
             locations[ i ].distance = data[ i ].distanceValue;
         }
         locations.sort( function( a, b ) {
@@ -59,37 +57,4 @@ function distanceMatrixHelper( socket, userOrigin, locations, distances ) {
         });
         socket.emit( 'distances', locations );
     });
-}
-
-function isOpen( location ) {
-    var date = new Date();
-    var day = date.getDay();
-    var time = ( date.getHours() * 100 ) + date.getMinutes();
-    switch ( date.getDay() ) {
-        case 0:
-            console.log( 'sunday' );
-            break;
-        case 1:
-            console.log( 'monday' );
-            break;
-        case 2:
-            console.log( 'tuesday' );
-            break;
-        case 3:
-            console.log( 'wednesday' );
-            break;
-        case 4:
-            console.log( 'thursday' );
-            break;
-        case 5:
-            console.log( (time > location.friOpen && time < location.friClose ) || ( time < location.thuClose ) );
-            break;
-        case 6:
-            console.log( 'saturday' );
-            break;
-        };
-    console.log( time );
-    // console.log( time > 1500 );
-    // console.log( time < 1500 );
-    // console.log( date.getMinutes() );
 }

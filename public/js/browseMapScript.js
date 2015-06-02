@@ -96,7 +96,8 @@ socket.on( 'distances', function( distances ) {
             distance: distance.distance,
             icon: 'img/locMark.png',
             hours: distance.hours,
-            isOpen: isOpen( distance.hours )
+            isOpen: isOpen( distance.hours ),
+            image: 'img/locationThumbs/' + distance.image
         });
         google.maps.event.addListener(marker, 'mouseover', function() {
             if( height === 50 ) {
@@ -114,11 +115,13 @@ socket.on( 'distances', function( distances ) {
             }
         });
         google.maps.event.addListener(marker, 'click', function() {
+            console.log
             var message = '<div class="main-overlay-content"><div class="main-overlay-left">' + (
                 this.title + ', ' +
                 this.address + ': ' +
                 this.distance +
                 '<br><br>' + this.isOpen +
+                '<br><br> <img src=' + this.image + ' class="location-thumb">' +
                 '</div></div><div class="main-overlay-right">HOURS:<br>' +
                 'mon: ' + readableHours( this.hours.mon[ 0 ].open ) + ' - ' + readableHours( this.hours.mon[ 0 ].close ) + '<br>' +
                 'tue: ' + readableHours( this.hours.tue[ 0 ].open ) + ' - ' + readableHours( this.hours.tue[ 0 ].close ) + '<br>' +

@@ -1,5 +1,6 @@
 var Location = require( 'mongoose' ).model( 'Location' ),
-    passport = require( 'passport' );
+    passport = require( 'passport' ),
+    multer = require( '../../config/multer.js' );
 
 /****************************************************
  *                                                  *
@@ -11,6 +12,8 @@ exports.create = function( req, res, next ) {           // right now this still 
     var location = new Location( req.body ),            // only check is if admin when the page renders
         latitude = null,                                // add a check here as well so it won't post unless adin
         longitude = null;
+    location.image = req.files.locationPhoto.name;
+    console.log( location.image );
     location.save( function( err ) {
         if( err ) {
             console.log( 'ERROR: locations.server.controller.create(): ' + err );

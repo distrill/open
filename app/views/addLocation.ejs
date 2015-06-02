@@ -5,12 +5,12 @@
     </head>
     <body>
         <% if( addAnother ) { %>
-            entry added successfully. <br><br>
+            entry added successfully. <br>
         <% } else { %>
-            <br><br>
+            <br>
         <% } %>
-        Add a location to the database.<br><br>
-        <form action="" method="post">
+        Add a location to the database.<br>
+        <form id="uploadForm" enctype="multipart/form-data" action="" method="post">
         <!-- <form action="" method="post" class="add-location-form"> -->
             <div>
                 place: <input type="text" name="place"><br>
@@ -60,6 +60,9 @@
                 open: <input type="text" name="hours.sun">
                 close: <input type="number" name="hours.sun"><br><br>
             </div>
+
+            upload image<br>
+            <input type="file" name="locationPhoto"><br><br>
 
             <input  class="submit-button" type="submit" value="submit">
         </form><br>

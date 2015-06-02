@@ -1,4 +1,5 @@
 var config = require( './config' ),
+    configMulter = require( '../config/multer.js' ),
     http = require( 'http' ),
     socketio = require( 'socket.io' ),
     express = require( 'express' ),
@@ -8,7 +9,8 @@ var config = require( './config' ),
     methodOverride = require( 'method-override' ),
     session = require( 'express-session' ),
     flash = require( 'connect-flash' ),
-    passport = require( 'passport' );
+    passport = require( 'passport' ),
+    multer = require( 'multer' );
 
 module.exports = function( db ) {
     var app = express();
@@ -26,6 +28,8 @@ module.exports = function( db ) {
     }));
     app.use( bodyParser.json() );
     app.use( methodOverride() );
+
+    app.use( multer( configMulter.settings ));
 
     app.use( session( {
         saveUninitialized: true,
