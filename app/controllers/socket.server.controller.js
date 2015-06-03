@@ -56,5 +56,8 @@ function distanceMatrixHelper( socket, userOrigin, locations, distances ) {
             return parseInt( a.distance ) - parseInt( b.distance );
         });
         socket.emit( 'distances', locations );
+        socket.on( 'distancesToggle', function( nothing ) {
+            socket.emit( 'distanceReturn', locations );
+        });
     });
 }

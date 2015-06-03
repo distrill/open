@@ -185,4 +185,9 @@ input[type="number"] {
     border-right: solid 2px #999;
     border-bottom: solid 2px #999; }
 
-/*# sourceMappingURL=stylesheet.css.map */
+.location-thumb {
+  width: 30%;
+  float: left; }
+
+.for-giggles {
+  content: 'is it this working?'; }
